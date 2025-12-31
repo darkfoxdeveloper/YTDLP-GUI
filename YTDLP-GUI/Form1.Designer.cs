@@ -33,13 +33,15 @@
             lstDownloadURIs = new ListBox();
             btnSettings = new Button();
             btnRemoveSelected = new Button();
+            tbxLog = new RichTextBox();
             SuspendLayout();
             // 
             // btnAddToDownload
             // 
-            btnAddToDownload.Location = new Point(492, 301);
+            btnAddToDownload.Location = new Point(265, 141);
+            btnAddToDownload.Margin = new Padding(2, 1, 2, 1);
             btnAddToDownload.Name = "btnAddToDownload";
-            btnAddToDownload.Size = new Size(223, 46);
+            btnAddToDownload.Size = new Size(120, 22);
             btnAddToDownload.TabIndex = 0;
             btnAddToDownload.Text = "Add to Download";
             btnAddToDownload.UseVisualStyleBackColor = true;
@@ -47,9 +49,10 @@
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(724, 301);
+            btnStart.Location = new Point(390, 141);
+            btnStart.Margin = new Padding(2, 1, 2, 1);
             btnStart.Name = "btnStart";
-            btnStart.Size = new Size(195, 46);
+            btnStart.Size = new Size(105, 22);
             btnStart.TabIndex = 1;
             btnStart.Text = "Start Download";
             btnStart.UseVisualStyleBackColor = true;
@@ -58,40 +61,59 @@
             // lstDownloadURIs
             // 
             lstDownloadURIs.FormattingEnabled = true;
-            lstDownloadURIs.Location = new Point(12, 12);
+            lstDownloadURIs.ItemHeight = 15;
+            lstDownloadURIs.Location = new Point(6, 6);
+            lstDownloadURIs.Margin = new Padding(2, 1, 2, 1);
             lstDownloadURIs.Name = "lstDownloadURIs";
-            lstDownloadURIs.Size = new Size(897, 260);
+            lstDownloadURIs.Size = new Size(485, 124);
             lstDownloadURIs.TabIndex = 2;
             // 
             // btnSettings
             // 
-            btnSettings.Location = new Point(12, 301);
+            btnSettings.Location = new Point(6, 141);
+            btnSettings.Margin = new Padding(2, 1, 2, 1);
             btnSettings.Name = "btnSettings";
-            btnSettings.Size = new Size(144, 46);
+            btnSettings.Size = new Size(140, 22);
             btnSettings.TabIndex = 3;
             btnSettings.Text = "Set Auth";
             btnSettings.UseVisualStyleBackColor = true;
+            btnSettings.Click += BtnSettings_Click;
             // 
             // btnRemoveSelected
             // 
-            btnRemoveSelected.Location = new Point(278, 301);
+            btnRemoveSelected.Location = new Point(150, 141);
+            btnRemoveSelected.Margin = new Padding(2, 1, 2, 1);
             btnRemoveSelected.Name = "btnRemoveSelected";
-            btnRemoveSelected.Size = new Size(208, 46);
+            btnRemoveSelected.Size = new Size(112, 22);
             btnRemoveSelected.TabIndex = 4;
             btnRemoveSelected.Text = "Remove selected";
             btnRemoveSelected.UseVisualStyleBackColor = true;
             btnRemoveSelected.Click += BtnRemoveSelected_Click;
             // 
+            // tbxLog
+            // 
+            tbxLog.BackColor = SystemColors.ControlText;
+            tbxLog.BorderStyle = BorderStyle.None;
+            tbxLog.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbxLog.ForeColor = SystemColors.Control;
+            tbxLog.Location = new Point(6, 177);
+            tbxLog.Name = "tbxLog";
+            tbxLog.Size = new Size(485, 113);
+            tbxLog.TabIndex = 5;
+            tbxLog.Text = "";
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(931, 359);
+            ClientSize = new Size(501, 295);
+            Controls.Add(tbxLog);
             Controls.Add(btnRemoveSelected);
             Controls.Add(btnSettings);
             Controls.Add(lstDownloadURIs);
             Controls.Add(btnStart);
             Controls.Add(btnAddToDownload);
+            Margin = new Padding(2, 1, 2, 1);
             Name = "Form1";
             Text = "Youtube DLP GUI";
             Load += Form1_Load;
@@ -105,5 +127,6 @@
         private ListBox lstDownloadURIs;
         private Button btnSettings;
         private Button btnRemoveSelected;
+        private RichTextBox tbxLog;
     }
 }

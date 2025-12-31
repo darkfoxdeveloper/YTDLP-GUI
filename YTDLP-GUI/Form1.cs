@@ -5,26 +5,80 @@ namespace YTDLP_GUI
     // winget install "FFmpeg (Essentials Build)"   requerimiento
     public partial class Form1 : Form
     {
+        private string AuthArgs = "";
         public Form1()
         {
             InitializeComponent();
             lstDownloadURIs.Items.Clear();
         }
 
-        private void BtnStart_Click(object sender, EventArgs e)
+        private async void BtnStart_Click(object sender, EventArgs e)
         {
-            foreach (string uri in lstDownloadURIs.Items)
+            btnStart.Enabled = false;
+            List<string> itemsToRemove = new List<string>();
+
+            try
             {
-                if (!uri.StartsWith("http://") && !uri.StartsWith("https://")) continue;
-                Process p = Process.Start(
-                    new ProcessStartInfo() { 
-                        FileName = "ytdlp.exe",
-                        Arguments = uri,
-                        RedirectStandardOutput = false
-                    });
-                p.WaitForExit();
-                //string output = p.StandardOutput.ReadToEnd();
-                //MessageBox.Show(output);
+                foreach (string uri in lstDownloadURIs.Items)
+                {
+                    if (!uri.StartsWith("http://") && !uri.StartsWith("https://"))
+                        continue;
+
+                    using (var p = new Process())
+                    {
+                        p.StartInfo = new ProcessStartInfo
+                        {
+                            FileName = "ytdlp.exe",
+                            Arguments = uri + " " + AuthArgs,
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            CreateNoWindow = true
+                        };
+
+                        p.OutputDataReceived += (s, ev) =>
+                        {
+                            if (string.IsNullOrEmpty(ev.Data)) return;
+                            tbxLog.BeginInvoke(new Action(() =>
+                            {
+                                tbxLog.AppendText(ev.Data + Environment.NewLine);
+                                tbxLog.ScrollToCaret();
+                            }));
+                        };
+
+                        p.ErrorDataReceived += (s, ev) =>
+                        {
+                            if (string.IsNullOrEmpty(ev.Data)) return;
+                            tbxLog.BeginInvoke(new Action(() =>
+                            {
+                                tbxLog.SelectionColor = Color.Red;
+                                tbxLog.AppendText(ev.Data + Environment.NewLine);
+                                tbxLog.SelectionColor = tbxLog.ForeColor;
+                                tbxLog.ScrollToCaret();
+                            }));
+                        };
+
+                        p.Start();
+                        p.BeginOutputReadLine();
+                        p.BeginErrorReadLine();
+
+                        await Task.Run(() => p.WaitForExit());
+                        p.WaitForExit();
+                    }
+                    itemsToRemove.Add(uri);
+                }
+
+                foreach (string item in itemsToRemove)
+                {
+                    lstDownloadURIs.Items.Remove(item);
+                }
+
+                string exeFolder = AppDomain.CurrentDomain.BaseDirectory;
+                Process.Start("explorer.exe", exeFolder);
+            }
+            finally
+            {
+                btnStart.Enabled = true;
             }
         }
 
@@ -50,6 +104,16 @@ namespace YTDLP_GUI
             if (!File.Exists("ytdlp.exe"))
             {
                 File.WriteAllBytes("ytdlp.exe", Properties.Resources.ytdlp);
+            }
+        }
+
+        private void BtnSettings_Click(object sender, EventArgs e)
+        {
+            var f = new CredentialsBox();
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                AuthArgs = $"-u {f.Username} -p {f.Password}";
+                btnSettings.Text = "Change Auth";
             }
         }
     }
