@@ -38,7 +38,7 @@
             // 
             // btnAddToDownload
             // 
-            btnAddToDownload.Location = new Point(265, 141);
+            btnAddToDownload.Location = new Point(371, 141);
             btnAddToDownload.Margin = new Padding(2, 1, 2, 1);
             btnAddToDownload.Name = "btnAddToDownload";
             btnAddToDownload.Size = new Size(120, 22);
@@ -49,7 +49,7 @@
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(390, 141);
+            btnStart.Location = new Point(609, 141);
             btnStart.Margin = new Padding(2, 1, 2, 1);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(105, 22);
@@ -65,7 +65,7 @@
             lstDownloadURIs.Location = new Point(6, 6);
             lstDownloadURIs.Margin = new Padding(2, 1, 2, 1);
             lstDownloadURIs.Name = "lstDownloadURIs";
-            lstDownloadURIs.Size = new Size(485, 124);
+            lstDownloadURIs.Size = new Size(708, 124);
             lstDownloadURIs.TabIndex = 2;
             // 
             // btnSettings
@@ -81,7 +81,7 @@
             // 
             // btnRemoveSelected
             // 
-            btnRemoveSelected.Location = new Point(150, 141);
+            btnRemoveSelected.Location = new Point(256, 141);
             btnRemoveSelected.Margin = new Padding(2, 1, 2, 1);
             btnRemoveSelected.Name = "btnRemoveSelected";
             btnRemoveSelected.Size = new Size(112, 22);
@@ -96,9 +96,9 @@
             tbxLog.BorderStyle = BorderStyle.None;
             tbxLog.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tbxLog.ForeColor = SystemColors.Control;
-            tbxLog.Location = new Point(6, 177);
+            tbxLog.Location = new Point(6, 167);
             tbxLog.Name = "tbxLog";
-            tbxLog.Size = new Size(485, 113);
+            tbxLog.Size = new Size(716, 266);
             tbxLog.TabIndex = 5;
             tbxLog.Text = "";
             // 
@@ -106,14 +106,16 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(501, 295);
+            ClientSize = new Size(725, 437);
             Controls.Add(tbxLog);
             Controls.Add(btnRemoveSelected);
             Controls.Add(btnSettings);
             Controls.Add(lstDownloadURIs);
             Controls.Add(btnStart);
             Controls.Add(btnAddToDownload);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(2, 1, 2, 1);
+            MaximizeBox = false;
             Name = "Form1";
             Text = "Youtube DLP GUI";
             Load += Form1_Load;
